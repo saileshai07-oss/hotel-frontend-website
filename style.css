@@ -1,0 +1,174 @@
+/**
+ * HOTEL GRAND HORIZON - CORE STRUCTURAL DESIGN SYSTEM
+ * Architecture: Variable-Driven Hardware-Accelerated Layout Engine
+ */
+
+/* ==========================================================================
+   1. Design Tokens & Global Variables
+   ========================================================================== */
+:root {
+    /* Brand Color Architecture */
+    --clr-amber-500: #d97706;
+    --clr-amber-700: #b45309;
+    --clr-slate-50: #f8fafc;
+    --clr-slate-100: #f1f5f9;
+    --clr-slate-200: #e2e8f0;
+    --clr-slate-400: #94a3b8;
+    --clr-slate-600: #475569;
+    --clr-slate-800: #1e293b;
+    --clr-slate-900: #0f172a;
+    --clr-slate-950: #020617;
+
+    /* Depth, Gradients & Glassmorphism Surfaces */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    --glass-navbar: rgba(255, 255, 255, 0.8);
+    --glass-blur: blur(12px);
+    --border-premium: 1px solid var(--clr-slate-100);
+
+    /* Animation Timing Handles */
+    --ease-premium: cubic-bezier(0.16, 1, 0.3, 1); /* Out-Quint */
+    --transition-speed: 0.4s;
+}
+
+/* ==========================================================================
+   2. Reset & Document Setup overrides
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--clr-slate-50);
+    color: var(--clr-slate-800);
+    line-height: 1.6;
+}
+
+/* Prevent body scrolling when Lightbox Modal window is toggled active */
+body.overflow-hidden {
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   3. Navigation Layout Components
+   ========================================================================== */
+header {
+    background-color: var(--glass-navbar);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--clr-slate-200);
+    transition: background-color var(--transition-speed) var(--ease-premium);
+}
+
+/* Text Gradient Premium Variant */
+.text-gradient-amber {
+    background: linear-gradient(135deg, var(--clr-amber-500), var(--clr-amber-700));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==========================================================================
+   4. Gallery & Media Presentation Layouts
+   ========================================================================== */
+#masonryContainer {
+    column-gap: 1.5rem;
+}
+
+.gallery-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--clr-slate-100);
+    border-radius: 1rem;
+    will-change: transform, box-shadow; /* Instructs performance processing directly onto GPU threads */
+    transition: transform var(--transition-speed) var(--ease-premium),
+                box-shadow var(--transition-speed) var(--ease-premium);
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    will-change: transform;
+    transition: transform 0.6s var(--ease-premium);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.04);
+}
+
+/* ==========================================================================
+   5. Dynamic Filtering & Framework Transitions
+   ========================================================================== */
+.filter-chip {
+    transition: all 0.3s var(--ease-premium);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Active Filtering scale animation scale targets called by main.js */
+.animate-scale-up {
+    animation: scaleUp 0.45s var(--ease-premium) forwards;
+}
+
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ==========================================================================
+   6. UI Customizations & Fine Tuning
+   ========================================================================== */
+
+/* High-End Architectural Custom Selection Highlight Overlays */
+::selection {
+    background-color: rgba(217, 119, 6, 0.15);
+    color: var(--clr-amber-700);
+}
+
+/* Ergonomic Scrollbar Customizations */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--clr-slate-50);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--clr-slate-400);
+    border-radius: 9999px;
+    border: 2px solid var(--clr-slate-50);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--clr-amber-500);
+}

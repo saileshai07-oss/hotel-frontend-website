@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Reservations | Hotel Grand Horizon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+        .form-input { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .form-input:focus { border-color: #d97706; box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.1); }
+    </style>
+
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col relative">
+
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <a href="index.html" class="text-2xl font-bold tracking-tight bg-gradient-to-r from-amber-500 to-amber-700 bg-clip-text text-transparent transition-opacity hover:opacity-90">GRAND HORIZON</a>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="index.html" class="hover:text-slate-900 transition-colors">Home</a>
+                <a href="about.html" class="hover:text-slate-900 transition-colors">About</a>
+                <a href="rooms.html" class="hover:text-slate-900 transition-colors">Rooms</a>
+                <a href="gallery.html" class="hover:text-slate-900 transition-colors">Gallery</a>
+                <a href="amenities.html" class="hover:text-slate-900 transition-colors">Amenities</a>
+                <a href="contact.html" class="hover:text-slate-900 transition-colors">Contact</a>
+            </nav>
+
+            <div class="hidden md:flex items-center">
+                <a href="booking.html" class="px-5 py-2.5 bg-amber-600 text-white rounded-xl text-sm font-medium hover:bg-amber-700 transition shadow-sm">Book Now</a>
+            </div>
+
+            <button id="mobileMenuTrigger" class="text-slate-700 focus:outline-none p-2 rounded-lg hover:bg-slate-50 transition md:hidden" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <div id="mobileMenuDrawer" class="absolute left-0 hidden w-full bg-white/95 backdrop-blur-md border-t border-slate-100 px-4 py-6 shadow-lg space-y-4 transition-all md:hidden">
+            <a href="index.html" class="block py-2 font-medium text-slate-600 text-lg hover:text-slate-900">Home</a>
+            <a href="about.html" class="block py-2 font-medium text-slate-600 text-lg hover:text-slate-900">About</a>
+            <a href="rooms.html" class="block py-2 font-medium text-slate-600 text-lg hover:text-slate-900">Rooms</a>
+            <a href="gallery.html" class="block py-2 font-medium text-slate-600 text-lg hover:text-slate-900">Gallery</a>
+            <a href="amenities.html" class="block py-2 font-medium text-slate-600 text-lg hover:text-slate-900">Amenities</a>
+            <div class="pt-4 border-t border-slate-100">
+                <a href="booking.html" class="block w-full rounded-xl bg-amber-600 px-5 py-3 text-center text-base font-medium text-white transition hover:bg-amber-700">Book Now</a>
+                <a href="contact.html" class="block w-full rounded-xl bg-slate-50 px-5 py-3 text-center text-base font-medium text-slate-700 transition hover:bg-slate-100 mt-2">Contact</a>
+            </div>
+        </div>
+    </header>
+
+   
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 flex-grow w-full">
+        
+        <div class="mb-12">
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Secure Your Sanctuary</h1>
+            <p class="text-sm text-slate-500 font-light mt-2">Confirm entry timelines, choice packages, and guest metrics to configure your arrival.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+            
+            <div class="lg:col-span-2 space-y-8">
+                <form id="reservationForm" class="bg-white border border-slate-100 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8">
+                    
+                    <div class="space-y-6">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2.5 pb-3 border-b border-slate-100"><i class="fa-solid fa-hotel text-amber-600 text-sm"></i> 1. Select Space & Timeline</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="roomSelection" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Suite Tier Selection</label>
+                                <select id="roomSelection" name="room_tier" class="form-input w-full bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 outline-none font-medium cursor-pointer">
+                                    <option value="250" data-name="Deluxe Coastal Room" selected>Deluxe Coastal Room — $250 / night</option>
+                                    <option value="550" data-name="Presidential Suite">Presidential Suite — $550 / night</option>
+                                    <option value="340" data-name="Executive Oasis Suite">Executive Oasis Suite — $340 / night</option>
+                                    <option value="420" data-name="Beachfront Family Sanctuary">Beachfront Family Sanctuary — $420 / night</option>
+                                    <option value="780" data-name="Sunset Panorama Villa">Sunset Panorama Villa — $780 / night</option>
+                                    <option value="295" data-name="Wellness Spa Studio">Wellness Spa Studio — $295 / night</option>
+                                </select>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label for="adultsCount" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Adults</label>
+                                    <select id="adultsCount" name="adults_count" class="form-input w-full bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none font-medium">
+                                        <option value="1">1 Adult</option>
+                                        <option value="2" selected>2 Adults</option>
+                                        <option value="3">3 Adults</option>
+                                        <option value="4">4 Adults</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="kidsCount" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Kids</label>
+                                    <select id="kidsCount" name="kids_count" class="form-input w-full bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none font-medium">
+                                        <option value="0">0 Kids</option>
+                                        <option value="1">1 Kid</option>
+                                        <option value="2">2 Kids</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="checkInDate" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Check-In Arrival</label>
+                                <div class="relative">
+                                    <i class="fa-regular fa-calendar absolute left-4 top-3.5 text-slate-400 text-sm pointer-events-none"></i>
+                                    <input type="date" id="checkInDate" name="check_in" required class="form-input w-full bg-slate-50/50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-sm text-slate-800 outline-none font-medium">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="checkOutDate" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Check-Out Departure</label>
+                                <div class="relative">
+                                    <i class="fa-regular fa-calendar absolute left-4 top-3.5 text-slate-400 text-sm pointer-events-none"></i>
+                                    <input type="date" id="checkOutDate" name="check_out" required class="form-input w-full bg-slate-50/50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-sm text-slate-800 outline-none font-medium">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2.5 pb-3 border-b border-slate-100"><i class="fa-solid fa-bell-concierge text-amber-600 text-sm"></i> 2. Reserve Premium Amenities</h2>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="relative flex items-start p-4 bg-slate-50 border border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100/50 transition select-none">
+                                <div class="flex items-center h-5 mt-0.5">
+                                    <input type="checkbox" name="amenities" value="75" data-name="Private Airport Shuttle Tracking" class="amenity-checkbox h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500">
+                                </div>
+                                <div class="ml-3.5 text-sm">
+                                    <span class="font-bold text-slate-900 block">Private Airport Shuttle Tracking</span>
+                                    <span class="text-xs text-slate-500 font-light block mt-0.5">Monitoring the real-time location and status of a private airport shuttle.</span>
+                                    <span class="text-xs font-semibold text-amber-600 block mt-1">+$75 flat rate</span>
+                                </div>
+                            </label>
+
+                            <label class="relative flex items-start p-4 bg-slate-50 border border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100/50 transition select-none">
+                                <div class="flex items-center h-5 mt-0.5">
+                                    <input type="checkbox" name="amenities" value="350" data-name="Outdoor Eco-Activities Block" class="amenity-checkbox h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500">
+                                </div>
+                                <div class="ml-3.5 text-sm">
+                                    <span class="font-bold text-slate-900 block">Outdoor Eco-Activities Block</span>
+                                    <span class="text-xs text-slate-500 font-light block mt-0.5">Engage in sustainable outdoor activities in a natural environment.</span>
+                                    <span class="text-xs font-semibold text-amber-600 block mt-1">+$350 / session</span>
+                                </div>
+                            </label>
+
+                            <label class="relative flex items-start p-4 bg-slate-50 border border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100/50 transition select-none">
+                                <div class="flex items-center h-5 mt-0.5">
+                                    <input type="checkbox" name="amenities" value="120" data-name="Subtropical Botanical Gardens" class="amenity-checkbox h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500">
+                                </div>
+                                <div class="ml-3.5 text-sm">
+                                    <span class="font-bold text-slate-900 block">Subtropical Botanical Gardens</span>
+                                    <span class="text-xs text-slate-500 font-light block mt-0.5">Garden featuring subtropical plants and trees.</span>
+                                    <span class="text-xs font-semibold text-amber-600 block mt-1">+$120 / guest</span>
+                                </div>
+                            </label>
+
+                            <label class="relative flex items-start p-4 bg-slate-50 border border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100/50 transition select-none">
+                                <div class="flex items-center h-5 mt-0.5">
+                                    <input type="checkbox" name="amenities" value="90" data-name="Regional Exploration Travel Desk" class="amenity-checkbox h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500">
+                                </div>
+                                <div class="ml-3.5 text-sm">
+                                    <span class="font-bold text-slate-900 block">Regional Exploration Travel Desk</span>
+                                    <span class="text-xs text-slate-500 font-light block mt-0.5">Personalized travel planning and local experience coordination.</span>
+                                    <span class="text-xs font-semibold text-amber-600 block mt-1">+$90 per day</span>
+                                </div>
+                            </label>
+                            
+                            <label class="relative flex items-start p-4 bg-slate-50 border border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100/50 transition select-none">
+                                <div class="flex items-center h-5 mt-0.5">
+                                    <input type="checkbox" name="amenities" value="90" data-name="Advanced Fitness Gym" class="amenity-checkbox h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500">
+                                </div>
+                                <div class="ml-3.5 text-sm">
+                                    <span class="font-bold text-slate-900 block">Advanced Fitness Gym</span>
+                                    <span class="text-xs text-slate-500 font-light block mt-0.5">State-of-the-art equipment and personalized training sessions.</span>
+                                    <span class="text-xs font-semibold text-amber-600 block mt-1">+$90 per day</span>
+                                </div>
+                            </label>
+                        
+                            <label class="relative flex items-start p-4 bg-slate-50 border border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-100/50 transition select-none">
+                                <div class="flex items-center h-5 mt-0.5">
+                                    <input type="checkbox" name="amenities" value="90" data-name="Spa & Wellness Center" class="amenity-checkbox h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500">
+                                </div>
+                                <div class="ml-3.5 text-sm">
+                                    <span class="font-bold text-slate-900 block">Spa & Wellness Center</span>
+                                    <span class="text-xs text-slate-500 font-light block mt-0.5">Relax and rejuvenate with our premium spa treatments.</span>
+                                    <span class="text-xs font-semibold text-amber-600 block mt-1">+$90 per day</span>
+                                </div>
+                            </label>
+                        
+                    
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2.5 pb-3 border-b border-slate-100"><i class="fa-solid fa-user-shield text-amber-600 text-sm"></i> 3. Guest Information</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="fullName" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Full Legal Name</label>
+                                <input type="text" id="fullName" name="full_name" placeholder="Enter guest's full name" required class="form-input w-full bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none font-medium">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="emailAddress" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Email Address</label>
+                                <input type="email" id="emailAddress" name="email" placeholder="guest@example.com" required class="form-input w-full bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="phoneNumber" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Contact Phone Number</label>
+                                <div class="flex gap-2">
+                                    <select id="countryCode" name="country_code" class="form-input max-w-[110px] bg-slate-50/50 border border-slate-200 rounded-xl px-3 py-3 text-sm outline-none font-medium cursor-pointer">
+                                        <option value="+91" selected>IN (+91)</option>
+                                        <option value="+1">US/CA (+1)</option>
+                                        <option value="+44">UK (+44)</option>
+                                        <option value="+61">AU (+61)</option>
+                                        <option value="+971">AE (+971)</option>
+                                        <option value="+65">SG (+65)</option>
+                                        <option value="+49">DE (+49)</option>
+                                        <option value="+33">FR (+33)</option>
+                                        <option value="+81">JP (+81)</option>
+                                        <option value="+82">KR (+82)</option>
+                                        <option value="+86">CN (+86)</option>
+                                    </select>
+                                    <input type="tel" id="phoneNumber" name="phone_number" placeholder="9876543210" required class="form-input flex-grow bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none font-medium">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="specialRequests" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Special Preferences</label>
+                                <input type="text" id="specialRequests" name="special_requests" placeholder="Dietary adjustments, high floor..." class="form-input w-full bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full rounded-xl bg-slate-950 hover:bg-slate-800 text-white font-semibold text-sm tracking-wide py-4 transition shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> Generate Booking Confirmation
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="space-y-6 lg:sticky lg:top-28">
+                <div class="bg-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl space-y-6">
+                    <h3 class="text-md font-bold tracking-wider uppercase text-amber-500">Your Booking Ledger</h3>
+                    
+                    <div class="space-y-4 border-b border-white/10 pb-6">
+                        <div>
+                            <span class="text-xs font-medium text-slate-400 block">Selected Sanctuary</span>
+                            <span id="summaryRoom" class="text-sm font-semibold text-white mt-1">Deluxe Coastal Room</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-xs font-medium text-slate-400">Room Rate / Night</span>
+                                <span class="block text-md font-mono font-bold mt-0.5" id="summaryRoomRate">$250</span>
+                            </div>
+                            <div>
+                                <span class="text-xs font-medium text-slate-400">Total Duration</span>
+                                * <span class="block text-md font-semibold mt-0.5" id="summaryTotalNights">1 Night</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-sm font-medium border-b border-white/10 pb-6">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Room Subtotal</span>
+                            <span class="font-mono text-slate-200" id="ledgerSubtotal">$250.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Amenities Premium</span>
+                            <span class="font-mono text-slate-200" id="ledgerAmenitiesSubtotal">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Resort Tax (15%)</span>
+                            <span class="font-mono text-slate-200" id="ledgerTax">$37.50</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-baseline justify-between pt-2">
+                        <span class="text-sm font-bold tracking-wide uppercase text-amber-500">Estimated Total</span>
+                        <span class="text-3xl font-extrabold font-mono text-white" id="ledgerGrandTotal">$287.50</span>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex items-start gap-4">
+                    <i class="fa-solid fa-shield-halved text-emerald-600 text-xl mt-0.5"></i>
+                    <div class="space-y-1">
+                        <h4 class="text-sm font-bold text-slate-900">Flexible Cancellation Policies</h4>
+                        <p class="text-xs text-slate-400 font-light leading-relaxed">Cancel up to 48 hours prior to targeted arrival times for complete down-payment returns.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+   
+    <div id="receiptModal" class="fixed inset-0 z-50 invisible flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm transition-all duration-300 opacity-0">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform scale-95 transition-all duration-300 relative flex flex-col max-h-[90vh]">
+            <div class="bg-gradient-to-r from-amber-600 to-amber-700 p-6 text-white text-center relative shrink-0">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                    <i class="fa-solid fa-bell-concierge"></i>
+                </div>
+                <h3 class="text-xl font-bold tracking-tight">Reservation Confirmed</h3>
+                <p class="text-xs text-amber-100/80 mt-1">Thank you for choosing Grand Horizon</p>
+                <p class="text-xs font-mono font-bold text-amber-200 mt-2 tracking-wider">CONF-ID: <span id="receiptConfId">######</span></p>
+            </div>
+            
+            <div class="p-6 space-y-6 overflow-y-auto text-sm">
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 space-y-3">
+                    <div class="flex justify-between items-baseline border-b border-slate-200/60 pb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Sanctuary Tier</span>
+                        <span id="receiptRoomName" class="font-semibold text-slate-900">---</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-xs pt-1">
+                        <div>
+                            <span class="text-slate-400 block font-medium">Check-In Arrival</span>
+                            <span id="receiptCheckIn" class="text-sm font-bold text-slate-800 mt-0.5 block">---</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 block font-medium">Check-Out Departure</span>
+                            <span id="receiptCheckOut" class="text-sm font-bold text-slate-800 mt-0.5 block">---</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5 px-1">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-1.5">Bundled Amenities</h4>
+                    <p id="receiptAmenitiesList" class="text-xs text-slate-800 font-medium leading-relaxed">None selected</p>
+                </div>
+
+                <div class="space-y-3 px-1">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-1.5">Guest Particulars</h4>
+                    <div class="grid grid-cols-2 gap-y-3 gap-x-4 text-xs">
+                        <div>
+                            <span class="text-slate-400 font-medium block">Lead Guest</span>
+                            <span id="receiptGuestName" class="text-slate-800 font-semibold mt-0.5 block">---</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 font-medium block">Contact Info</span>
+                            <span id="receiptGuestPhone" class="text-slate-800 font-semibold mt-0.5 block font-mono">---</span>
+                        </div>
+                        <div class="col-span-2">
+                            <span class="text-slate-400 font-medium block">Configuration Summary</span>
+                            <span id="receiptMetrics" class="text-slate-800 font-medium mt-0.5 block">---</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-dashed border-slate-200 pt-4 space-y-2 px-1">
+                    <div class="flex justify-between text-xs text-slate-500 font-medium">
+                        <span>Room Charges Subtotal</span>
+                        <span id="receiptSubtotal" class="font-mono">---</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-500 font-medium">
+                        <span>Amenities Bundle Premium</span>
+                        <span id="receiptAmenitiesCost" class="font-mono">---</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-500 font-medium">
+                        <span>Surcharge Resort Tax (15%)</span>
+                        <span id="receiptTax" class="font-mono">---</span>
+                    </div>
+                    <div class="flex justify-between items-baseline text-slate-900 pt-3 border-t border-slate-100">
+                        <span class="font-bold tracking-wide uppercase text-xs">Total Ledger Settled</span>
+                        <span id="receiptTotal" class="text-2xl font-extrabold font-mono text-amber-600">---</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex gap-3 shrink-0">
+                <button id="printReceiptBtn" class="flex-1 py-3 border border-slate-200 hover:bg-white bg-slate-100/50 text-slate-700 font-semibold text-xs tracking-wide rounded-xl transition flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-print"></i> Print Receipt
+                </button>
+                
+                <button id="closeReceiptBtn" class="flex-1 py-3 bg-slate-950 hover:bg-slate-800 text-white font-semibold text-xs tracking-wide rounded-xl transition">
+                    Done
+                </button>
+
+                 
+                
+<!-- Inside the footer, add a wrapper for the cancel action -->
+<div id="cancelActionWrapper" class="flex-1">
+    <button id="cancelBookingBtn" class="w-full py-3 border border-red-100 hover:bg-red-50 text-red-600 font-semibold text-xs tracking-wide rounded-xl transition flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-ban"></i>Cancel Booking
+    </button>
+    
+    <!-- Hidden confirmation buttons -->
+    <div id="confirmCancelGroup" class="hidden flex gap-2">
+        <button id="confirmBtn" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs rounded-xl">Confirm</button>
+    
+        <button id="abortBtn" class="flex-1 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold text-xs rounded-xl">Keep</button>
+    </div>
+</div>
+
+
+
+            </div>
+        </div>
+    </div>
+    
+   
+   
+    <!-- Luxury Layout Footer Component Frame -->
+    <footer class="bg-slate-900 text-white border-t border-slate-800 py-16 shrink-0 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm font-light">
+            <div class="space-y-4">
+                <h4 class="text-xl font-bold tracking-tight text-amber-400">GRAND HORIZON</h4>
+                <p class="text-slate-400 leading-relaxed font-light">An ultra-luxury coastal sanctuary architected to capture seamless visual harmony along pristine oceanside shorelines.</p>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Directory Mapping</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="index.html" class="hover:text-amber-400 transition">Home Portal</a></li>
+                    <li><a href="rooms.html" class="hover:text-amber-400 transition">Suites & Villas</a></li>
+                    <li><a href="amenities.html" class="hover:text-amber-400 transition">Amenities Index</a></li>
+                    <li><a href="gallery.html" class="hover:text-amber-400 transition">Gallery Showcase</a></li>
+                    <li><a href="about.html" class="hover:text-amber-400 transition">About Us</a></li>
+                    <li><a href="contact.html" class="hover:text-amber-400 transition">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Guest Assistance</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="about.html" class="hover:text-amber-400 transition">Our Brand Story</a></li>
+                    <li><a href="contact.html" class="hover:text-amber-400 transition">Support & Contact</a></li>
+                    <li><a href="booking.html" class="hover:text-amber-400 transition">Reservation Portal</a></li>
+                    
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Contact Hub</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li class="flex gap-2"><i class="fa-solid fa-location-dot text-amber-500 mt-0.5"></i> 742 Ocean Edge Drive</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-amber-500" aria-hidden="true"></i> +1 (555) 839-2001</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-amber-500"></i> stay@grandhorizonresort.com</li>
+                </ul>
+            </div>
+        </div>
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-900 mt-auto pt-16 pb-8 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2024 Grand Horizon Resort. All rights reserved.</p>
+
+        <div class="flex items-center gap-4">
+    <!-- Replace '#' with your actual profile URLs -->
+    <a href="https://www.facebook.com/YourHotelPage" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Facebook page">
+        <i class="fa-brands fa-facebook-f"></i>
+    </a>
+    <a href="https://www.twitter.com/YourHotelHandle" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Twitter profile">
+        <i class="fa-brands fa-twitter"></i>
+    </a>
+    <a href="https://www.instagram.com/YourHotelHandle" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Instagram profile">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+
+          </div>
+        </div>
+    </footer>
+
+    
+    <script>
+        // Menu Navigation Drawer controls
+        const menuTrigger = document.getElementById('mobileMenuTrigger');
+        const menuDrawer = document.getElementById('mobileMenuDrawer');
+        menuTrigger.addEventListener('click', () => {
+            menuDrawer.classList.toggle('hidden');
+        });
+
+        // Interface Input Hook Elements
+        const roomSelection = document.getElementById('roomSelection');
+        const checkIn = document.getElementById('checkInDate');
+        const checkOut = document.getElementById('checkOutDate');
+        const amenityCheckboxes = document.querySelectorAll('.amenity-checkbox');
+        
+        // Ledger Display Fields
+        const summaryRoom = document.getElementById('summaryRoom');
+        const summaryRoomRate = document.getElementById('summaryRoomRate');
+        const summaryTotalNights = document.getElementById('summaryTotalNights');
+        const ledgerSubtotal = document.getElementById('ledgerSubtotal');
+        const ledgerAmenitiesSubtotal = document.getElementById('ledgerAmenitiesSubtotal');
+        const ledgerTax = document.getElementById('ledgerTax');
+        const ledgerGrandTotal = document.getElementById('ledgerGrandTotal');
+
+        // Establish structural fallback time frames
+        const today = new Date().toISOString().split('T')[0];
+        checkIn.min = today;
+        checkIn.value = today;
+
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowString = tomorrow.toISOString().split('T')[0];
+        checkOut.min = tomorrowString;
+        checkOut.value = tomorrowString;
+
+        // Structural Calculation Routine Engine
+        function computeReservationTotals() {
+            const currentOption = roomSelection.options[roomSelection.selectedIndex];
+            const baseRate = parseFloat(currentOption.value);
+            const friendlyName = currentOption.getAttribute('data-name');
+            
+            const start = new Date(checkIn.value);
+            const end = new Date(checkOut.value);
+            
+            let stayDuration = 1;
+            if (end > start) {
+                const absoluteDiff = Math.abs(end - start);
+                stayDuration = Math.ceil(absoluteDiff / (1000 * 60 * 60 * 24));
+            }
+
+            // Calculation Loop for Amenity Pricing Matrices
+            let amenitiesTotal = 0;
+            amenityCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    amenitiesTotal += parseFloat(checkbox.value);
+                }
+            });
+
+            // Metric Formulation Equations
+            const roomSubtotal = baseRate * stayDuration;
+            const combinedPreTax = roomSubtotal + amenitiesTotal;
+            const taxAmount = combinedPreTax * 0.15;
+            const totalBill = combinedPreTax + taxAmount;
+
+            // Render output details updates smoothly
+            summaryRoom.textContent = friendlyName;
+            summaryRoomRate.textContent = `$${baseRate}`;
+            summaryTotalNights.textContent = `${stayDuration} ${stayDuration === 1 ? 'Night' : 'Nights'}`;
+            ledgerSubtotal.textContent = `$${roomSubtotal.toFixed(2)}`;
+            ledgerAmenitiesSubtotal.textContent = `$${amenitiesTotal.toFixed(2)}`;
+            ledgerTax.textContent = `$${taxAmount.toFixed(2)}`;
+            ledgerGrandTotal.textContent = `$${totalBill.toFixed(2)}`;
+        }
+
+        // Change Handling Engine Setup
+        roomSelection.addEventListener('change', computeReservationTotals);
+        
+        // Link all checkboxes to target calculator recalculation routines
+        amenityCheckboxes.forEach(box => {
+            box.addEventListener('change', computeReservationTotals);
+        });
+
+        checkIn.addEventListener('change', () => {
+            // Prevent booking backwards through time
+            if (checkIn.value >= checkOut.value) {
+                const forwardDate = new Date(checkIn.value);
+                forwardDate.setDate(forwardDate.getDate() + 1);
+                checkOut.value = forwardDate.toISOString().split('T')[0];
+            }
+            computeReservationTotals();
+        });
+
+        checkOut.addEventListener('change', () => {
+            if (checkOut.value <= checkIn.value) {
+                const backwardDate = new Date(checkOut.value);
+                backwardDate.setDate(backwardDate.getDate() - 1);
+                checkIn.value = backwardDate.toISOString().split('T')[0];
+            }
+            computeReservationTotals();
+        });
+
+        // Initialize state engine on launch
+        computeReservationTotals();
+
+        // --- NEW FEATURES: BOOKING CONFIRMATION RECEIPT MODAL ROUTINES ---
+        const reservationForm = document.getElementById('reservationForm');
+        const receiptModal = document.getElementById('receiptModal');
+        const closeReceiptBtn = document.getElementById('closeReceiptBtn');
+        const printReceiptBtn = document.getElementById('printReceiptBtn');
+
+        // Capture data streams upon successful validation to map out receipt content fields
+        reservationForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Lock pipeline default navigation reload
+
+            // Extract real-time form context fields safely
+            const chosenOption = roomSelection.options[roomSelection.selectedIndex];
+            const nameInput = document.getElementById('fullName').value.trim();
+            const phoneVal = document.getElementById('countryCode').value + " " + document.getElementById('phoneNumber').value;
+            const metricsString = `${document.getElementById('adultsCount').value} • ${document.getElementById('kidsCount').value} (${summaryTotalNights.textContent})`;
+
+            // Process list of selected amenities to display on receipt
+            let activeAmenities = [];
+            amenityCheckboxes.forEach(box => {
+                if (box.checked) {
+                    activeAmenities.push(box.getAttribute('data-name'));
+                }
+            });
+            const receiptAmenitiesList = document.getElementById('receiptAmenitiesList');
+            receiptAmenitiesList.textContent = activeAmenities.length > 0 ? activeAmenities.join(', ') : "None selected";
+
+            // Map variables across receipt DOM text destinations
+            document.getElementById('receiptConfId').textContent = "GH-" + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('receiptRoomName').textContent = chosenOption.getAttribute('data-name');
+            document.getElementById('receiptCheckIn').textContent = checkIn.value;
+            document.getElementById('receiptCheckOut').textContent = checkOut.value;
+            document.getElementById('receiptGuestName').textContent = nameInput;
+            document.getElementById('receiptGuestPhone').textContent = phoneVal;
+            document.getElementById('receiptMetrics').textContent = metricsString;
+            document.getElementById('receiptSubtotal').textContent = ledgerSubtotal.textContent;
+            document.getElementById('receiptAmenitiesCost').textContent = ledgerAmenitiesSubtotal.textContent;
+            document.getElementById('receiptTax').textContent = ledgerTax.textContent;
+            document.getElementById('receiptTotal').textContent = ledgerGrandTotal.textContent;
+
+            // Trigger modal entrance animations securely
+            receiptModal.classList.remove('invisible');
+            setTimeout(() => {
+                receiptModal.classList.remove('opacity-0');
+                receiptModal.firstElementChild.classList.remove('scale-95');
+            }, 10);
+
+
+const cancelBtn = document.getElementById('cancelBookingBtn');
+const confirmGroup = document.getElementById('confirmCancelGroup');
+const confirmAction = document.getElementById('confirmBtn');
+const abortAction = document.getElementById('abortBtn');
+
+// Show confirmation buttons
+cancelBtn.addEventListener('click', () => {
+    cancelBtn.classList.add('hidden');
+    confirmGroup.classList.remove('hidden');
+});
+
+// Revert if user changes mind
+abortAction.addEventListener('click', () => {
+    confirmGroup.classList.add('hidden');
+    cancelBtn.classList.remove('hidden');
+});
+
+// Execute cancellation
+confirmAction.addEventListener('click', () => {
+    // Modify UI to reflect cancellation status
+    const header = document.querySelector('#receiptModal .bg-gradient-to-r');
+    header.classList.replace('from-amber-600', 'from-red-600');
+    header.classList.replace('from-amber-700', 'from-red-700');
+    
+    document.querySelector('#receiptModal h3').textContent = "Booking Cancelled";
+    document.getElementById('receiptTotal').textContent = "$0.00";
+    document.getElementById('receiptMetrics').textContent = "STATUS: VOIDED";
+    
+    // Hide buttons and show success state
+    document.getElementById('cancelActionWrapper').classList.add('hidden');
+    document.getElementById('printReceiptBtn').classList.add('hidden');
+});
+       
+        });
+    
+
+        // Modal dismissal handling & Form Deep-Cleaning Functionality
+        function purgeAndResetForm() {
+            // Animate modal exit
+            receiptModal.classList.add('opacity-0');
+            receiptModal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => {
+                receiptModal.classList.add('invisible');
+            }, 300);
+
+            // Reset form fields to initial state
+            reservationForm.reset();
+            computeReservationTotals();
+
+            // Reset cancellation UI if previously triggered
+            const header = document.querySelector('#receiptModal .bg-gradient-to-r');
+            header.classList.replace('from-red-600', 'from-amber-600');
+            header.classList.replace('from-red-700', 'from-amber-700');
+            document.querySelector('#receiptModal h3').textContent = "Reservation Confirmed";
+            document.getElementById('cancelActionWrapper').classList.remove('hidden');
+            document.getElementById('printReceiptBtn').classList.remove('hidden');
+        }
+        
+
+        closeReceiptBtn.addEventListener('click', purgeAndResetForm);
+
+        // Local dynamic receipt print window engine hook
+        printReceiptBtn.addEventListener('click', () => {
+            window.print();
+        });
+    </script>
+</body>
+</html>

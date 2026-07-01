@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Hotel Grand Horizon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        .form-input { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .form-input:focus { border-color: #d97706; box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.1); }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .faq-content { max-height: 0; transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; }
+
+        /* Custom Typing Indicator Flashing Animations */
+        .typing-bubble { display: inline-flex; align-items: center; gap: 4px; padding: 12px 16px; }
+        .typing-dot { width: 6px; height: 6px; background-color: #94a3b8; border-radius: 50%; display: inline-block; animation: typingBounce 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased min-h-screen flex flex-col relative">
+
+    <header class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 dark:border-slate-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <a href="index.html" class="text-2xl font-bold tracking-tight bg-gradient-to-r from-amber-500 to-amber-700 bg-clip-text text-transparent transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg">GRAND HORIZON</a>
+            </div>
+            
+            <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <a href="index.html" class="hover:text-amber-600 dark:hover:text-amber-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-md px-1">Home</a>
+                <a href="rooms.html" class="hover:text-amber-600 dark:hover:text-amber-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-md px-1">Rooms</a>
+                <a href="amenities.html" class="hover:text-amber-600 dark:hover:text-amber-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-md px-1">Amenities</a>
+                <a href="gallery.html" class="hover:text-amber-600 dark:hover:text-amber-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-md px-1">Gallery</a>
+                <a href="about.html" class="hover:text-amber-600 dark:hover:text-amber-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-md px-1">About Us</a>
+                <a href="contact.html" class="text-amber-600 dark:text-amber-500 font-semibold border-b-2 border-amber-500 pb-1 focus-visible:outline-none" aria-current="page">Contact Us</a>
+            </nav>
+
+            <div class="hidden lg:flex items-center gap-4">
+                <button id="themeToggle" class="p-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500" aria-label="Toggle Theme Mode">
+                    <i id="themeToggleIcon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+                <a href="booking.html" class="px-5 py-2.5 bg-amber-600 text-white rounded-xl text-sm font-medium hover:bg-amber-700 transition shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">Book Now</a>
+            </div>
+
+            <div class="flex items-center gap-2 lg:hidden">
+                <button id="mobileThemeToggle" class="p-2 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500" aria-label="Toggle Theme Mode Mobile">
+                    <i id="mobileThemeToggleIcon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+                <button id="mobileMenuTrigger" class="text-slate-700 dark:text-slate-300 focus:outline-none p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500" aria-label="Toggle Menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenuDrawer" class="absolute left-0 hidden w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 px-4 py-6 shadow-lg space-y-4 transition-all lg:hidden">
+            <a href="index.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300 text-lg hover:text-amber-600">Home</a>
+            <a href="rooms.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300 text-lg hover:text-amber-600">Rooms</a>
+            <a href="amenities.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300 text-lg hover:text-amber-600">Amenities</a>
+            <a href="gallery.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300 text-lg hover:text-amber-600">Gallery</a>
+            <a href="about.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300 text-lg hover:text-amber-600">About Us</a>
+            <a href="contact.html" class="block py-2 font-semibold text-amber-600 text-lg">Contact Us</a>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <a href="booking.html" class="block w-full rounded-xl bg-amber-600 px-5 py-3 text-center text-base font-medium text-white transition hover:bg-amber-700">Book Now</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative h-[45vh] min-h-[350px] bg-slate-900 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 opacity-40 mix-blend-multiply bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+        <div class="relative max-w-4xl mx-auto text-center px-4 space-y-4 z-10">
+            <span class="text-xs font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 px-3 py-1.5 rounded-full">Contact Registry</span>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white">Get in Touch</h1>
+            <p class="text-md sm:text-lg text-slate-200 font-light max-w-xl mx-auto leading-relaxed">Experience uncompromised hospitality management assistance. Connect with our client services registry.</p>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+        <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl shadow-slate-900/5 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center group">
+            <div class="w-14 h-14 bg-amber-50 dark:bg-amber-950/40 text-amber-600 rounded-2xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-phone"></i></div>
+            <h3 class="text-md font-bold text-slate-900 dark:text-white">Call Us</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Direct inquiries anytime</p>
+            <a href="tel:+18005550199" class="text-sm font-semibold text-amber-600 mt-3 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded px-1">+1 (800) 555-0199</a>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl shadow-slate-900/5 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center group">
+            <div class="w-14 h-14 bg-amber-50 dark:bg-amber-950/40 text-amber-600 rounded-2xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-envelope"></i></div>
+            <h3 class="text-md font-bold text-slate-900 dark:text-white">Email Us</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Written digital communication</p>
+            <a href="mailto:concierge@grandhorizon.com" class="text-sm font-semibold text-amber-600 mt-3 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded px-1">concierge@grandhorizon.com</a>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl shadow-slate-900/5 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center group">
+            <div class="w-14 h-14 bg-amber-50 dark:bg-amber-950/40 text-amber-600 rounded-2xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-location-dot"></i></div>
+            <h3 class="text-md font-bold text-slate-900 dark:text-white">Visit Us</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Experience physical property layouts</p>
+            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300 mt-3">777 Horizon Blv, Maui, HI</span>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-3xl p-6 shadow-xl shadow-slate-900/5 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center group">
+            <div class="w-14 h-14 bg-amber-50 dark:bg-amber-950/40 text-amber-600 rounded-2xl flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300"><i class="fa-solid fa-robot"></i></div>
+            <h3 class="text-md font-bold text-slate-900 dark:text-white">AI Concierge</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">24/7 Smart Assistance Support</p>
+            <button id="openLiveChatBtn" class="text-sm font-semibold text-amber-600 mt-3 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded px-1">Launch Assistant</button>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 reveal">
+        <div class="text-center max-w-xl mx-auto mb-10">
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Dedicated Guest Assistance Architecture</h2>
+            <div class="w-12 h-1 bg-amber-500 mx-auto mt-3 rounded-full"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-2xl flex gap-4 items-start">
+                <div class="text-amber-600 text-lg mt-1"><i class="fa-solid fa-clock"></i></div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">24/7 AI Assistance</h4>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 leading-relaxed">Instant smart triage vectors processing anytime.</p>
+                </div>
+            </div>
+            <div class="p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-2xl flex gap-4 items-start">
+                <div class="text-amber-600 text-lg mt-1"><i class="fa-solid fa-bolt"></i></div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Instant Booking Assistance</h4>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 leading-relaxed">Direct pipeline updates for dynamic floor requests.</p>
+                </div>
+            </div>
+            <div class="p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-2xl flex gap-4 items-start">
+                <div class="text-amber-600 text-lg mt-1"><i class="fa-solid fa-calendar-check"></i></div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Event & Conference Inquiries</h4>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 leading-relaxed">Conference frameworks, summits and gathering logic.</p>
+                </div>
+            </div>
+            <div class="p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-2xl flex gap-4 items-start">
+                <div class="text-amber-600 text-lg mt-1"><i class="fa-solid fa-plane"></i></div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Travel Assistance</h4>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 leading-relaxed">Shuttle transfers and premium regional excursion guidelines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start reveal">
+        <div class="lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-3xl p-6 sm:p-10 shadow-sm space-y-6">
+            <div>
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5"><i class="fa-solid fa-envelope-open-text text-amber-600 text-md"></i> Submit Communications Dispatch</h2>
+                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Please provide accurate verification vectors below to route your transmission.</p>
+            </div>
+
+            <div id="feedbackAlert" class="hidden p-4 rounded-xl text-xs font-semibold items-center gap-2 transition-all duration-300 border" role="alert"></div>
+
+            <form id="contactForm" class="space-y-5" novalidate>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="space-y-1.5">
+                        <label for="fullName" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Full Name *</label>
+                        <input type="text" id="fullName" required placeholder="John Doe" class="form-input w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm outline-none font-medium text-slate-800 dark:text-slate-100 focus-visible:ring-2 focus-visible:ring-amber-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label for="emailAddress" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Email Address *</label>
+                        <input type="email" id="emailAddress" required placeholder="johndoe@example.com" class="form-input w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm outline-none text-slate-800 dark:text-slate-100 focus-visible:ring-2 focus-visible:ring-amber-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="space-y-1.5">
+                        <label for="phoneNumber" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Phone Number</label>
+                        <input type="tel" id="phoneNumber" placeholder="+1 (555) 000-0000" class="form-input w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm outline-none text-slate-800 dark:text-slate-100 focus-visible:ring-2 focus-visible:ring-amber-500">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label for="subject" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Subject *</label>
+                        <input type="text" id="subject" required placeholder="Reservation Inquiries" class="form-input w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm outline-none text-slate-800 dark:text-slate-100 focus-visible:ring-2 focus-visible:ring-amber-500">
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label for="message" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Message *</label>
+                    <textarea id="message" required rows="5" placeholder="Detail the context parameters of your targeted event or stay adjustments..." class="form-input w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm outline-none text-slate-800 dark:text-slate-100 resize-none focus-visible:ring-2 focus-visible:ring-amber-500"></textarea>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row gap-3">
+                    <button type="submit" id="submitBtn" class="flex-grow sm:flex-grow-[2] rounded-xl bg-slate-950 hover:bg-slate-800 dark:bg-amber-600 dark:hover:bg-amber-700 text-white font-semibold text-sm tracking-wide py-3.5 transition shadow-md flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                        <span id="btnText" class="flex items-center gap-2"><i class="fa-solid fa-paper-plane"></i> Submit Message</span>
+                    </button>
+                    <button type="reset" class="flex-1 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-sm tracking-wide py-3.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400">
+                        Reset Form
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="space-y-6 lg:sticky lg:top-28">
+            <div class="bg-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl space-y-6 border border-slate-800">
+                <h3 class="text-xs font-bold tracking-wider uppercase text-amber-500 border-b border-white/10 pb-3"><i class="fa-solid fa-circle-nodes"></i> Registry Contact Metrics</h3>
+                
+                <div class="space-y-4 text-xs font-medium">
+                    <div class="flex items-start gap-3">
+                        <div class="text-amber-500 text-md mt-0.5"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <div>
+                            <span class="text-slate-400 block font-light">Hotel Address</span>
+                            <span class="text-sm font-semibold text-slate-100 mt-1 block">777 Horizon Boulevard, Maui, Hawaii, 96761</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3">
+                            <div class="text-amber-500 text-md mt-0.5"><i class="fa-solid fa-phone-volume"></i></div>
+                            <div>
+                                <span class="text-slate-400 block font-light">Phone</span>
+                                <span class="text-slate-100 font-semibold mt-0.5 block font-mono">+1 (800) 555-0199</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-amber-500 text-md mt-0.5"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                            <div>
+                                <span class="text-slate-400 block font-light">Mobile</span>
+                                <span class="text-slate-100 font-semibold mt-0.5 block font-mono">+1 (800) 555-0144</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 border-t border-white/5 pt-4">
+                        <div class="text-amber-500 text-md mt-0.5"><i class="fa-solid fa-at"></i></div>
+                        <div>
+                            <span class="text-slate-400 block font-light">Email Address</span>
+                            <span class="text-slate-100 font-semibold mt-0.5 block">concierge@grandhorizon.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full reveal">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Frequently Asked Questions</h2>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Common operational process guide modules</p>
+        </div>
+        <div class="space-y-3">
+            <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+                <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-semibold text-sm text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                    <span>What are the check-in and check-out times at Hotel Grand Horizon?</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transform transition-transform duration-200"></i>
+                </button>
+                <div class="faq-content">
+                    <p class="px-6 pb-5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">Standard guest check-in sequences begin at 3:00 PM. Check-out departure processing parameters close at 11:00 AM daily. Requests for early arrival or extended departures are subject to availability.</p>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+                <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-semibold text-sm text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                    <span>What room classifications and base pricing models are offered?</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transform transition-transform duration-200"></i>
+                </button>
+                <div class="faq-content">
+                    <p class="px-6 pb-5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">We offer 3 core tiers: Standard Deluxe Rooms ($299/night base), Premium Ocean-View Executive Suites ($540/night base), and luxury Maui Beachfront Villas with personal infinity pools ($1,200/night base).</p>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+                <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-semibold text-sm text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                    <span>Is guest parking or valet accessible on the property layout?</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transform transition-transform duration-200"></i>
+                </button>
+                <div class="faq-content">
+                    <p class="px-6 pb-5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">Yes, complimentary automated valet validation decks are fully open at our primary entry portico 24 hours a day for all registered guests. Self-parking options are also entirely free within our secure underground parking layers.</p>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+                <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-semibold text-sm text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                    <span>What on-site dining hubs and schedules are available?</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transform transition-transform duration-200"></i>
+                </button>
+                <div class="faq-content">
+                    <p class="px-6 pb-5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">We feature two primary venues: 'The Horizon Lanai' (open-air culinary fusion, 6:30 AM to 10:00 PM) and 'The Reef Lounge' (craft cocktails and light plates, 4:00 PM to midnight). Room delivery channels are active 24/7.</p>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+                <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-semibold text-sm text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                    <span>What wellness and resort amenities do guests have access to?</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transform transition-transform duration-200"></i>
+                </button>
+                <div class="faq-content">
+                    <p class="px-6 pb-5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">Guests enjoy full access to our heated Horizon Infinity Pool, a 24-hour fitness grid center, direct Maui beachfront paths, and the premium 'Aura Wellness Spa Center' open daily from 8:00 AM to 8:00 PM.</p>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+                <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-semibold text-sm text-slate-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500">
+                    <span>What is the cancellation and refund structure?</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transform transition-transform duration-200"></i>
+                </button>
+                <div class="faq-content">
+                    <p class="px-6 pb-5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">Reservations can be modified or canceled without penalty up to 72 hours prior to your scheduled 3:00 PM check-in timeframe. Standard late adjustments incur a one-night room fee.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- Luxury Layout Footer Component Frame -->
+    <footer class="bg-slate-900 text-white border-t border-slate-800 py-16 shrink-0 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm font-light">
+            <div class="space-y-4">
+                <h4 class="text-xl font-bold tracking-tight text-amber-400">GRAND HORIZON</h4>
+                <p class="text-slate-400 leading-relaxed font-light">An ultra-luxury coastal sanctuary architected to capture seamless visual harmony along pristine oceanside shorelines.</p>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Directory Mapping</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="index.html" class="hover:text-amber-400 transition">Home Portal</a></li>
+                    <li><a href="rooms.html" class="hover:text-amber-400 transition">Suites & Villas</a></li>
+                    <li><a href="amenities.html" class="hover:text-amber-400 transition">Amenities Index</a></li>
+                    <li><a href="gallery.html" class="hover:text-amber-400 transition">Gallery Showcase</a></li>
+                    <li><a href="about.html" class="hover:text-amber-400 transition">About Us</a></li>
+                    <li><a href="contact.html" class="hover:text-amber-400 transition">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Guest Assistance</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="about.html" class="hover:text-amber-400 transition">Our Brand Story</a></li>
+                    <li><a href="contact.html" class="hover:text-amber-400 transition">Support & Contact</a></li>
+                    <li><a href="booking.html" class="hover:text-amber-400 transition">Reservation Portal</a></li>
+                    
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Contact Hub</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li class="flex gap-2"><i class="fa-solid fa-location-dot text-amber-500 mt-0.5"></i> 742 Ocean Edge Drive</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-amber-500" aria-hidden="true"></i> +1 (555) 839-2001</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-amber-500"></i> stay@grandhorizonresort.com</li>
+                </ul>
+            </div>
+        </div>
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-900 mt-auto pt-16 pb-8 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2024 Grand Horizon Resort. All rights reserved.</p>
+
+        <div class="flex items-center gap-4">
+    <!-- Replace '#' with your actual profile URLs -->
+    <a href="https://www.facebook.com/YourHotelPage" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Facebook page">
+        <i class="fa-brands fa-facebook-f"></i>
+    </a>
+    <a href="https://www.twitter.com/YourHotelHandle" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Twitter profile">
+        <i class="fa-brands fa-twitter"></i>
+    </a>
+    <a href="https://www.instagram.com/YourHotelHandle" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Instagram profile">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+
+          </div>
+        </div>
+    </footer>
+
+    <div id="liveChatWidget" class="fixed bottom-24 right-6 z-50 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hidden flex-col transition-all duration-300">
+        <div class="bg-slate-950 dark:bg-slate-800 p-4 text-white flex justify-between items-center">
+            <div class="flex items-center gap-2.5">
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                <div>
+                    <h4 class="font-bold text-xs tracking-wide">Horizon AI Virtual Concierge</h4>
+                    <span class="text-[10px] text-slate-400 block font-light">Online & Autopilot Active</span>
+                </div>
+            </div>
+            <button id="closeLiveChatBtn" class="text-slate-400 hover:text-white text-sm p-1 focus-visible:ring-1 focus-visible:ring-amber-500 rounded" aria-label="Close Chat Portal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div id="chatMessageLog" class="p-4 h-64 overflow-y-auto text-xs space-y-3 bg-slate-50/50 dark:bg-slate-950/40">
+            <div class="flex gap-2 items-start max-w-[85%]">
+                <div class="w-6 h-6 rounded-full bg-amber-600 flex items-center justify-center text-[10px] text-white shrink-0"><i class="fa-solid fa-robot"></i></div>
+                <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-2.5 rounded-2xl text-slate-700 dark:text-slate-300 shadow-sm leading-relaxed">
+                    Aloha! I am your updated AI Virtual Concierge. I have complete access to Grand Horizon parameters. You can ask me about room classifications, rates, dining spaces, spa amenities, local valet information, or cancellation guidelines!
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-2">
+            <input type="text" id="chatInputField" placeholder="Type hotel question..." class="flex-grow bg-slate-50 dark:bg-slate-950 px-3 py-2 rounded-xl text-xs outline-none border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 focus-visible:ring-2 focus-visible:ring-amber-500">
+            <button id="sendChatMessageBtn" class="bg-amber-600 hover:bg-amber-700 text-white px-3 rounded-xl text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500" aria-label="Send Message"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <button id="backToTopBtn" class="fixed bottom-6 right-6 z-40 w-11 h-11 bg-amber-600 hover:bg-amber-700 text-white shadow-lg rounded-xl flex items-center justify-center transition-all duration-300 opacity-0 translate-y-6 pointer-events-none focus-visible:outline-none focus-visible:ring-2" aria-label="Scroll to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script>
+        const menuTrigger = document.getElementById('mobileMenuTrigger');
+        const menuDrawer = document.getElementById('mobileMenuDrawer');
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeToggleIcon = document.getElementById('themeToggleIcon');
+        const mobileThemeToggleBtn = document.getElementById('mobileThemeToggle');
+        const mobileThemeToggleIcon = document.getElementById('mobileThemeToggleIcon');
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const contactForm = document.getElementById('contactForm');
+        const feedbackAlert = document.getElementById('feedbackAlert');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+
+        const liveChatWidget = document.getElementById('liveChatWidget');
+        const openLiveChatBtn = document.getElementById('openLiveChatBtn');
+        const closeLiveChatBtn = document.getElementById('closeLiveChatBtn');
+        const chatInputField = document.getElementById('chatInputField');
+        const sendChatMessageBtn = document.getElementById('sendChatMessageBtn');
+        const chatMessageLog = document.getElementById('chatMessageLog');
+
+        menuTrigger.addEventListener('click', () => {
+            const isHidden = menuDrawer.classList.toggle('hidden');
+            menuTrigger.setAttribute('aria-expanded', !isHidden);
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                menuDrawer.classList.add('hidden');
+                menuTrigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        function syncThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const iconClass = isDark ? 'fa-solid fa-sun text-lg text-amber-500' : 'fa-solid fa-moon text-lg';
+            themeToggleIcon.className = iconClass;
+            mobileThemeToggleIcon.className = iconClass;
+        }
+
+        function systemModeToggle() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            syncThemeIcons();
+        }
+
+        themeToggleBtn.addEventListener('click', systemModeToggle);
+        mobileThemeToggleBtn.addEventListener('click', systemModeToggle);
+        syncThemeIcons();
+
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const nameValue = document.getElementById('fullName').value.trim();
+            const emailValue = document.getElementById('emailAddress').value.trim();
+            const subjectValue = document.getElementById('subject').value.trim();
+            const messageValue = document.getElementById('message').value.trim();
+
+            if (!nameValue || !emailValue || !subjectValue || !messageValue) {
+                renderFormAlert("Submission failed. Please confirm entries within all required fields (*).", "error");
+                return;
+            }
+
+            const emailTemplateRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailTemplateRegex.test(emailValue)) {
+                renderFormAlert("The layout syntax of your email address configuration is invalid.", "error");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            btnText.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> Dispatching...`;
+
+            setTimeout(() => {
+                renderFormAlert("Transmission dispatch successful. Our standard desk will reply shortly.", "success");
+                contactForm.reset();
+                submitBtn.disabled = false;
+                btnText.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Submit Message`;
+            }, 1200);
+        });
+
+        function renderFormAlert(msg, level) {
+            feedbackAlert.className = "p-4 rounded-xl text-xs font-semibold flex items-center gap-2 border transition-all duration-200";
+            feedbackAlert.textContent = msg;
+            if (level === 'success') {
+                feedbackAlert.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-200', 'dark:bg-emerald-950/30', 'dark:text-emerald-400', 'dark:border-emerald-800/50');
+            } else {
+                feedbackAlert.classList.add('bg-rose-50', 'text-rose-800', 'border-rose-200', 'dark:bg-rose-950/30', 'dark:text-rose-400', 'dark:border-rose-800/50');
+            }
+            feedbackAlert.classList.remove('hidden');
+        }
+
+        openLiveChatBtn.addEventListener('click', () => {
+            liveChatWidget.classList.remove('hidden');
+            liveChatWidget.classList.add('flex');
+            chatInputField.focus();
+        });
+
+        closeLiveChatBtn.addEventListener('click', () => {
+            liveChatWidget.classList.add('hidden');
+            liveChatWidget.classList.remove('flex');
+        });
+
+        /* REAL-TIME TOTAL HOTEL DATABASE RESPONSE LOGIC */
+        function getAIResponse(input) {
+            const query = input.toLowerCase();
+            
+            if (query.includes('check') || query.includes('time') || query.includes('hour') || query.includes('arrive') || query.includes('leave')) {
+                return "Standard guest check-in sequences begin securely at 3:00 PM. Check-out departure processing parameters close at 11:00 AM daily. Requests for early arrival or extended departures are processed live based on occupancy metrics.";
+            } 
+            else if (query.includes('room') || query.includes('suite') || query.includes('villas') || query.includes('stay') || query.includes('bed')) {
+                return "Hotel Grand Horizon offers 3 core lodging archetypes: Standard Deluxe Rooms ($299/night base), Premium Ocean-View Executive Suites ($540/night base including private balcony), and our exclusive Maui Luxury Beachfront Villas with personal infinity pools ($1,200/night base). All spaces include modern climate layouts and high-speed fiber channels.";
+            } 
+            else if (query.includes('price') || query.includes('rate') || query.includes('cost') || query.includes('book') || query.includes('reserve')) {
+                return "Our seasonal rates range dynamically from $299 to $1,200/night. You can check current absolute dates and book directly by clicking the orange 'Book Now' pipeline button located at the top-right of your navigation viewport layer!";
+            } 
+            else if (query.includes('park') || query.includes('valet') || query.includes('car') || query.includes('vehicle')) {
+                return "Complimentary automated valet validation decks are fully open at our primary portico entry 24 hours a day for all registered package guests. Self-parking options are completely free within our secure underground parking levels.";
+            } 
+            else if (query.includes('eat') || query.includes('dine') || query.includes('restaurant') || query.includes('food') || query.includes('breakfast') || query.includes('bar')) {
+                return "We boast 2 premium dining hubs: 'The Horizon Lanai' (offering open-air coastal culinary fusions from 6:30 AM to 10:00 PM) and 'The Reef Lounge' (serving artisanal local drinks and small plates from 4:00 PM to midnight). 24/7 room delivery pipelines are also active.";
+            }
+            else if (query.includes('amenit') || query.includes('pool') || query.includes('gym') || query.includes('spa') || query.includes('beach')) {
+                return "Resort structures include our heated Horizon Infinity Pool, a 24-hour cardio/strength grid fitness workspace, direct access portals to Maui beach shores, and the luxury 'Aura Wellness Spa Center' open daily from 8:00 AM to 8:00 PM.";
+            }
+            else if (query.includes('cancel') || query.includes('refund') || query.includes('policy')) {
+                return "Reservations can be canceled or adjusted without penalty up to 72 hours before your scheduled 3:00 PM check-in timeframe. Later cancellations will result in a standard one-night reservation fee.";
+            }
+            else if (query.includes('hello') || query.includes('hi') || query.includes('hey') || query.includes('aloha')) {
+                return "Aloha! Welcome to the Grand Horizon Digital Concierge Desk. How can I optimize your travel, stay arrangements, or amenity itineraries today?";
+            }
+            
+            return "Thank you for query log context. While I finalize processing that exact parameter, I can tell you that Grand Horizon provides 3 premium room tiers, a 24/7 valet service, 2 beach restaurants, and flexible cancellation vectors. How else can I assist your planning details?";
+        }
+
+        function processGuestMessage() {
+            const text = chatInputField.value.trim();
+            if(!text) return;
+
+            const userMsgContainer = document.createElement('div');
+            userMsgContainer.className = "flex gap-2 items-start max-w-[85%] ml-auto justify-end";
+            const userBubble = document.createElement('div');
+            userBubble.className = "bg-amber-600 text-white p-2.5 rounded-2xl shadow-sm text-left leading-relaxed break-words";
+            userBubble.textContent = text;
+            userMsgContainer.appendChild(userBubble);
+            chatMessageLog.appendChild(userMsgContainer);
+            
+            chatInputField.value = '';
+            chatMessageLog.scrollTop = chatMessageLog.scrollHeight;
+
+            const typingIndicatorContainer = document.createElement('div');
+            typingIndicatorContainer.className = "flex gap-2 items-start max-w-[85%] id-typing-loader";
+            typingIndicatorContainer.innerHTML = `
+                <div class="w-6 h-6 rounded-full bg-slate-400 dark:bg-slate-700 flex items-center justify-center text-[10px] text-white shrink-0"><i class="fa-solid fa-robot"></i></div>
+                <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-sm typing-bubble">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            chatMessageLog.appendChild(typingIndicatorContainer);
+            chatMessageLog.scrollTop = chatMessageLog.scrollHeight;
+
+            setTimeout(() => {
+                const activeLoader = chatMessageLog.querySelector('.id-typing-loader');
+                if (activeLoader) activeLoader.remove();
+
+                const aiMsgContainer = document.createElement('div');
+                aiMsgContainer.className = "flex gap-2 items-start max-w-[85%]";
+                aiMsgContainer.innerHTML = `
+                    <div class="w-6 h-6 rounded-full bg-amber-600 flex items-center justify-center text-[10px] text-white shrink-0"><i class="fa-solid fa-robot"></i></div>
+                `;
+                const aiBubble = document.createElement('div');
+                aiBubble.className = "bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-2.5 rounded-2xl text-slate-700 dark:text-slate-300 shadow-sm leading-relaxed break-words";
+                aiBubble.textContent = getAIResponse(text);
+                
+                aiMsgContainer.appendChild(aiBubble);
+                chatMessageLog.appendChild(aiMsgContainer);
+                chatMessageLog.scrollTop = chatMessageLog.scrollHeight;
+            }, 900);
+        }
+
+        sendChatMessageBtn.addEventListener('click', processGuestMessage);
+        chatInputField.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') processGuestMessage();
+        });
+
+        const faqTriggers = document.querySelectorAll('.faq-trigger');
+        faqTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const contentNode = trigger.nextElementSibling;
+                const iconNode = trigger.querySelector('.fa-chevron-down');
+                if (contentNode.style.maxHeight && contentNode.style.maxHeight !== '0px') {
+                    contentNode.style.maxHeight = '0px';
+                    iconNode.style.transform = 'rotate(0deg)';
+                } else {
+                    contentNode.style.maxHeight = contentNode.scrollHeight + "px";
+                    iconNode.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        const runScrollAnimations = () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
+            }
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 40) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', runScrollAnimations);
+        backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        setTimeout(runScrollAnimations, 100);
+    </script>
+</body>
+</html>

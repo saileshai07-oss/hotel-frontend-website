@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Grand Horizon | Luxury Coastal Resort & Spa</title>
+    <!-- Tailwind CSS Platform Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Vector Asset Registry -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Premium Typography Provider Engine -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Tailwind Context Configuration for Light/Dark Unified Theme Matrix
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        .hero-zoom { animation: cinematicZoom 25s ease-out infinite alternate; }
+        @keyframes cinematicZoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased scroll-smooth flex flex-col min-h-screen">
+
+    <!-- Global Layout Header Navigation Element -->
+    <header id="mainNav" class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Identity Anchor Link -->
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-compass text-amber-600 text-xl"></i>
+                <a href="index.html" class="text-2xl font-bold tracking-tight bg-gradient-to-r from-amber-500 to-amber-700 bg-clip-text text-transparent">GRAND HORIZON</a>
+            </div>
+            
+            <!-- Desktop Access Navigation Nodes -->
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium">
+                <a href="index.html" class="text-amber-600 dark:text-amber-500 font-semibold">Home</a>
+                <a href="rooms.html" class="text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-500 transition-colors">Rooms</a>
+                <a href="amenities.html" class="text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-500 transition-colors">Amenities</a>
+                <a href="gallery.html" class="text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-500 transition-colors">Gallery</a>
+                <a href="about.html" class="text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-500 transition-colors">About Us</a>
+                <a href="contact.html" class="text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-500 transition-colors">Contact Us</a>
+            </nav>
+
+            <!-- Operational Utilities Tray -->
+            <div class="hidden lg:flex items-center gap-4">
+                <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition" aria-label="Toggle Display Environment">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+                <a href="booking.html" class="px-5 py-2.5 bg-slate-950 dark:bg-amber-600 text-white rounded-xl text-sm font-semibold hover:bg-slate-800 dark:hover:bg-amber-500 transition shadow-sm">Book Now</a>
+            </div>
+
+            <!-- Mobile UI Trigger Hub -->
+            <div class="flex items-center gap-3 lg:hidden">
+                <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300" aria-label="Toggle Night Mode Context">
+                    <i id="themeIconMobile" class="fa-solid fa-moon"></i>
+                </button>
+                <button id="mobileMenuTrigger" class="text-slate-700 dark:text-slate-200 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Toggle Menu Drawer">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer Linking System -->
+        <div id="mobileMenuDrawer" class="absolute left-0 hidden w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 px-4 py-6 shadow-lg space-y-4 lg:hidden">
+            <a href="index.html" class="block py-2 font-bold text-amber-600">Home</a>
+            <a href="rooms.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300">Rooms</a>
+            <a href="amenities.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300">Amenities</a>
+            <a href="gallery.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300">Gallery</a>
+            <a href="about.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300">About Us</a>
+            <a href="contact.html" class="block py-2 font-medium text-slate-600 dark:text-slate-300">Contact Us</a>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <a href="booking.html" class="block w-full rounded-xl bg-slate-950 dark:bg-amber-600 text-white px-5 py-3 text-center font-medium">Book Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Full-Screen Cinematographic Hero Banner Section -->
+    <section class="relative h-screen w-full flex items-center justify-center bg-slate-950 overflow-hidden shrink-0">
+        <div class="absolute inset-0">
+            <!-- FIXED BACKGROUND PICTURE TO 34544_2.jpg -->
+       <img src="images/34544_2. jpg.avif" alt="Luxury hotel exterior with illuminated pool and glowing coastal facade at dusk, creating a calm and inviting resort atmosphere" class="hero-zoom w-full h-full object-cover opacity-60 dark:opacity-45">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/40"></div>
+        <div class="relative z-10 text-center space-y-6 px-4 max-w-4xl">
+            <span class="text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-400 block drop-shadow-md">Uncompromised Beachfront Opulence</span>
+            <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight text-white drop-shadow-xl leading-tight">Welcome to Hotel Grand Horizon</h1>
+            <p class="text-slate-200 dark:text-slate-300 font-light text-base sm:text-xl max-w-2xl mx-auto drop-shadow-md">
+                Experience high-performance modern coastal structural sanctuaries engineered to maximize alignment, rest, and total sensory balance.
+            </p>
+            <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="booking.html" class="w-full sm:w-auto px-8 py-4 bg-amber-600 text-white rounded-xl font-bold tracking-wide hover:bg-amber-500 shadow-lg transition text-center transform hover:-translate-y-0.5">Reserve Room Layout</a>
+                <a href="#featuredRooms" class="w-full sm:w-auto px-8 py-4 bg-white/10 text-white backdrop-blur-md rounded-xl font-bold tracking-wide border border-white/20 hover:bg-white/20 transition text-center transform hover:-translate-y-0.5">Explore Floor Suites</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dynamic Content Engine Grid Matrix -->
+    <main class="w-full space-y-24 sm:space-y-32 py-20 sm:py-28 overflow-hidden">
+        
+        <!-- Featured Rooms Section Matrix -->
+        <section id="featuredRooms" class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            <div class="text-center space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block">Sanctuary Enclaves</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">World-Class Guest Suites</h2>
+                <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Suite Node 1 -->
+                <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="relative h-64 bg-slate-100 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80" alt="Deluxe terrace suite bedroom with plush bed and soft lighting in a serene luxury hotel room setting" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <span class="absolute top-4 right-4 px-3 py-1.5 bg-slate-950/70 text-white rounded-lg text-xs font-bold backdrop-blur-md">$290 / Night</span>
+                    </div>
+                    <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Deluxe Terrace Suite</h3>
+                            <p class="text-slate-500 dark:text-slate-400 font-light text-sm leading-relaxed">Integrated architectural comforts balancing intelligent automated environment monitoring with custom structural private views.</p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <a href="rooms.html" class="text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-500 flex items-center gap-1">View Blueprint <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suite Node 2 -->
+                <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="relative h-64 bg-slate-100 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80" alt="Executive suite lounge area with king bed, refined neutral decor, seating area and tranquil ambient lighting in a luxury hotel interior" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <span class="absolute top-4 right-4 px-3 py-1.5 bg-slate-950/70 text-white rounded-lg text-xs font-bold backdrop-blur-md">$450 / Night</span>
+                    </div>
+                    <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Executive Oasis Workspace</h3>
+                            <p class="text-slate-500 dark:text-slate-400 font-light text-sm leading-relaxed">High-performance acoustic insulation panels matched with localized deep networking connectivity matrix nodes.</p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <a href="rooms.html" class="text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-500 flex items-center gap-1">View Blueprint <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suite Node 3 -->
+                <div class="group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="relative h-64 bg-slate-100 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" alt="Presidential oceanfront villa suite bedroom with panoramic sea view, elegant coastal decor and luxurious upscale retreat ambiance" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <span class="absolute top-4 right-4 px-3 py-1.5 bg-slate-950/70 text-white rounded-lg text-xs font-bold backdrop-blur-md">$890 / Night</span>
+                    </div>
+                    <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Presidential Horizon Vault</h3>
+                            <p class="text-slate-500 dark:text-slate-400 font-light text-sm leading-relaxed">Bespoke panoramic layout complete with private mineral lap swimming units and complete continuous service access links.</p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <a href="rooms.html" class="text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-500 flex items-center gap-1">View Blueprint <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Amenities Overview Section -->
+        <section class="reveal bg-white dark:bg-slate-900 border-y border-slate-100 dark:border-slate-800/60 py-24 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block">Ecosystem Infrastructure</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">Integrated Resort Assets</h2>
+                    <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+                    <div class="p-6 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/50 rounded-2xl text-center space-y-4 transform hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-amber-50 dark:bg-slate-900 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-xl mx-auto shadow-sm"><i class="fa-solid fa-wifi"></i></div>
+                        <h4 class="font-bold text-sm tracking-tight">Symmetric Fiber Wi-Fi</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/50 rounded-2xl text-center space-y-4 transform hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-amber-50 dark:bg-slate-900 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-xl mx-auto shadow-sm"><i class="fa-solid fa-water-ladder"></i></div>
+                        <h4 class="font-bold text-sm tracking-tight">Infinity Mineral Pool</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/50 rounded-2xl text-center space-y-4 transform hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-amber-50 dark:bg-slate-900 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-xl mx-auto shadow-sm"><i class="fa-solid fa-utensils"></i></div>
+                        <h4 class="font-bold text-sm tracking-tight">Signature Kitchens</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/50 rounded-2xl text-center space-y-4 transform hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-amber-50 dark:bg-slate-900 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-xl mx-auto shadow-sm"><i class="fa-solid fa-spa"></i></div>
+                        <h4 class="font-bold text-sm tracking-tight">Therapeutic Spa Center</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/50 rounded-2xl text-center space-y-4 transform hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-amber-50 dark:bg-slate-900 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-xl mx-auto shadow-sm"><i class="fa-solid fa-dumbbell"></i></div>
+                        <h4 class="font-bold text-sm tracking-tight">Biometric Fitness Gym</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/50 rounded-2xl text-center space-y-4 transform hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-amber-50 dark:bg-slate-900 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-xl mx-auto shadow-sm"><i class="fa-solid fa-square-parking"></i></div>
+                        <h4 class="font-bold text-sm tracking-tight">EV Monitored Valet</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/50 rounded-2xl text-center space-y-4 transform hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-amber-50 dark:bg-slate-900 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-xl mx-auto shadow-sm"><i class="fa-solid fa-bell"></i></div>
+                        <h4 class="font-bold text-sm tracking-tight">Thermal Room Service</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/50 rounded-2xl text-center space-y-4 transform hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-amber-50 dark:bg-slate-900 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center text-xl mx-auto shadow-sm"><i class="fa-solid fa-van-shuttle"></i></div>
+                        <h4 class="font-bold text-sm tracking-tight">Synchronized Shuttles</h4>
+                    </div>
+                </div>
+
+                <div class="text-center pt-4">
+                    <a href="amenities.html" class="inline-flex items-center gap-2 px-6 py-3 border border-slate-200 dark:border-slate-700 hover:border-amber-600 dark:hover:border-amber-500 rounded-xl font-bold text-sm transition">View All Amenities Index <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fixed & Restructured Value Proposition Section -->
+        <section class="reveal max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <div class="space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block">Performance Metrics</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">Setting Luxury Standards</h2>
+                    <div class="w-16 h-1 bg-amber-500 rounded-full"></div>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 font-light leading-relaxed">
+                    We maintain unyielding physical facility controls to eliminate execution latency, tracking parameters from structural dynamic acoustic isolation matrix loops to verified pristine local sourcing paths.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex gap-4 items-start">
+                        <div class="w-8 h-8 rounded-full bg-amber-50 dark:bg-slate-900 flex items-center justify-center text-amber-600 shrink-0 mt-0.5"><i class="fa-solid fa-crown text-xs"></i></div>
+                        <div>
+                            <h4 class="font-bold text-base text-slate-900 dark:text-white">Luxury Architecture Alignment</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed">Precision build configurations tailored intentionally around pristine ocean visual arrays.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="w-8 h-8 rounded-full bg-amber-50 dark:bg-slate-900 flex items-center justify-center text-amber-600 shrink-0 mt-0.5"><i class="fa-solid fa-map-pin text-xs"></i></div>
+                        <div>
+                            <h4 class="font-bold text-base text-slate-900 dark:text-white">Unparalleled Isolation Coordinates</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed">Direct absolute boundary line access to private coastline vectors without environmental noise bleed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-slate-800">
+                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=80" alt="Luxury resort facade with pool and landscaped grounds in a polished beachfront environment" class="w-full h-full object-cover">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Interactive Back To Top Control Element Node -->
+    <button id="backToTopBtn" class="fixed bottom-6 right-6 w-12 h-12 bg-slate-950 dark:bg-amber-600 text-white border border-slate-800 dark:border-amber-500/20 rounded-xl shadow-2xl flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:bg-slate-800 dark:hover:bg-amber-500 z-40" onclick="scrollToTop()" aria-label="Scroll Back To Ceiling">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Luxury Layout Footer Component Frame -->
+    <footer class="bg-slate-900 text-white border-t border-slate-800 py-16 shrink-0 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm font-light">
+            <div class="space-y-4">
+                <h4 class="text-xl font-bold tracking-tight text-amber-400">GRAND HORIZON</h4>
+                <p class="text-slate-400 leading-relaxed font-light">An ultra-luxury coastal sanctuary architected to capture seamless visual harmony along pristine oceanside shorelines.</p>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Directory Mapping</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="index.html" class="hover:text-amber-400 transition">Home Portal</a></li>
+                    <li><a href="rooms.html" class="hover:text-amber-400 transition">Suites & Villas</a></li>
+                    <li><a href="amenities.html" class="hover:text-amber-400 transition">Amenities Index</a></li>
+                    <li><a href="gallery.html" class="hover:text-amber-400 transition">Gallery Showcase</a></li>
+                    <li><a href="about.html" class="hover:text-amber-400 transition">About Us</a></li>
+                    <li><a href="contact.html" class="hover:text-amber-400 transition">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Guest Assistance</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="about.html" class="hover:text-amber-400 transition">Our Brand Story</a></li>
+                    <li><a href="contact.html" class="hover:text-amber-400 transition">Support & Contact</a></li>
+                    <li><a href="booking.html" class="hover:text-amber-400 transition">Reservation Portal</a></li>
+                    
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h5 class="font-bold text-slate-200 tracking-wide uppercase text-xs">Contact Hub</h5>
+                <ul class="space-y-2 text-slate-400">
+                    <li class="flex gap-2"><i class="fa-solid fa-location-dot text-amber-500 mt-0.5"></i> 742 Ocean Edge Drive</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-amber-500" aria-hidden="true"></i> +1 (555) 839-2001</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-amber-500"></i> stay@grandhorizonresort.com</li>
+                </ul>
+            </div>
+        </div>
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-900 mt-auto pt-16 pb-8 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2024 Grand Horizon Resort. All rights reserved.</p>
+
+        <div class="flex items-center gap-4">
+    <!-- Replace '#' with your actual profile URLs -->
+    <a href="https://www.facebook.com/YourHotelPage" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Facebook page">
+        <i class="fa-brands fa-facebook-f"></i>
+    </a>
+    <a href="https://www.twitter.com/YourHotelHandle" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Twitter profile">
+        <i class="fa-brands fa-twitter"></i>
+    </a>
+    <a href="https://www.instagram.com/YourHotelHandle" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition" aria-label="Visit our Instagram profile">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+
+          </div>
+        </div>
+    </footer>
+    
+    <!-- Script Automation Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuTrigger = document.getElementById('mobileMenuTrigger');
+            const menuDrawer = document.getElementById('mobileMenuDrawer');
+            if (menuTrigger && menuDrawer) {
+                menuTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    menuDrawer.classList.toggle('');
+                });
+                document.addEventListener('click', () => menuDrawer.classList.add('hidden'));
+            }
+
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                updateThemeUI(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeUI(false);
+            }
+
+            window.addEventListener('scroll', handleScrollEffects);
+            handleScrollEffects();
+        });
+
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeUI(isDark);
+        }
+
+        function updateThemeUI(isDark) {
+            const iconDesktop = document.getElementById('themeIcon');
+            const iconMobile = document.getElementById('themeIconMobile');
+            const matchClass = isDark ? 'fa-sun' : 'fa-moon';
+            const clearClass = isDark ? 'fa-moon' : 'fa-sun';
+
+            [iconDesktop, iconMobile].forEach(icon => {
+                if(icon) {
+                    icon.classList.remove(clearClass);
+                    icon.classList.add(matchClass);
+                }
+            });
+        }
+
+        function handleScrollEffects() {
+            const bttBtn = document.getElementById('backToTopBtn');
+            const header = document.getElementById('mainNav');
+            
+            if (window.scrollY > 600) {
+                bttBtn.classList.remove('opacity-0', 'pointer-events-none');
+                bttBtn.classList.add('opacity-100');
+            } else {
+                bttBtn.classList.add('opacity-0', 'pointer-events-none');
+                bttBtn.classList.remove('opacity-100');
+            }
+
+            if (window.scrollY > 80) {
+                header.classList.remove('h-20');
+                header.classList.add('h-16', 'shadow-md', 'bg-white/95', 'dark:bg-slate-900/95');
+            } else {
+                header.classList.remove('h-16', 'shadow-md', 'bg-white/95', 'dark:bg-slate-900/95');
+                header.classList.add('h-20');
+            }
+
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 120;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
