@@ -32,18 +32,21 @@ Hotel Reservation & Booking Website
 
 ## How to Run
 1. Clone this repository to your local machine.
-2. Open `index.html` in any modern web browser.
-3. For real-time updates while coding, use the **Live Server** extension in VS Code.
+2. Open `index.html` in any modern web browser to run the static front-end deployment immediately.
+3.Open the workspace folder inside VS Code and activate the Live Server extension for real-time saving tracking and immediate CSS updates.
+
 
 ## Rectification & Stability Fixes
 - **Modal State Persistence:** Rectified bugs where "Booking Cancelled" states would persist into new bookings by implementing a factory-reset function that clears CSS classes, text content, and button visibility.
 - **Animation Syncing:** Resolved UI "blank screen" issues by integrating a smooth exit animation timeout with a form-clearing function.
 - **Blocking Alert Removal:** Replaced system-level `alert()` calls with dynamic DOM updates to prevent browser-freezing during booking confirmation/cancellation.
 
+
 ## Netlify Deployment Steps
-1. Create a GitHub repository and push all project files.
-2. Log in to your [Netlify](https://www.netlify.com/) account.
-3. Click **"Add new site"** > **"Import an existing project"**.
-4. Connect your GitHub repository.
-5. Click **"Deploy"**.
-6.
+1. Create a GitHub repository
+2. upload all files from this folder.
+3. Log in to your [Netlify](https://www.netlify.com/) account.
+4. Click **"Add new site"** > **"Import an existing project"**.
+5. Connect your GitHub repository.
+6. Click **"Deploy site"**to compile your pages live to the edge distribution network instantly.
+  
